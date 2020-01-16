@@ -480,22 +480,32 @@ final class RuleVariableValueMapBuilder {
         }
     }
 
-    private String getLastUpdateDate(List<RuleDataValue> ruleDataValues) {
+    private String getLastUpdateDate(List<RuleDataValue> ruleDataValues)
+    {
         List<Date> dates = new ArrayList<>();
-        for (RuleDataValue date : ruleDataValues) {
+        Date today = new Date();
+        for ( RuleDataValue date : ruleDataValues )
+        {
             Date d = date.eventDate();
-            if (!d.after(new Date())) {
+            if ( !d.after( today ) )
+            {
                 dates.add(d);
             }
         }
+
         return dateFormat.format(Collections.max(dates));
     }
 
-    private String getLastUpdateDateForPrevious(List<RuleDataValue> ruleDataValues) {
+    private String getLastUpdateDateForPrevious(List<RuleDataValue> ruleDataValues)
+    {
         List<Date> dates = new ArrayList<>();
-        for (RuleDataValue date : ruleDataValues) {
+        Date today = new Date();
+
+        for ( RuleDataValue date : ruleDataValues )
+        {
             Date d = date.eventDate();
-            if (!d.after(new Date()) && d.before(ruleEvent.eventDate())) {
+            if ( !d.after( today ) && d.before( ruleEvent.eventDate() ) )
+            {
                 dates.add(d);
             }
         }
